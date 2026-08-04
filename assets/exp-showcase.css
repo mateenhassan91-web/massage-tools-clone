@@ -1,13 +1,13 @@
 <style>
 .experience-showcase{
-    background:var(--section-bg);
+    background-color: #F5F6F6;
     padding:80px 20px;
 }
 
 .experience-showcase__container{
     max-width:1440px;
     margin:0 auto;
-   background-color: #F5F6F6;
+   
 }
 
 .experience-showcase__grid{
