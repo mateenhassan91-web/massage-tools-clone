@@ -401,11 +401,11 @@
     </div>
   </div>
 </div>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    const infoBar = document.querySelector('.ch-info-bar-grid'); // Target ONLY the top bar
     const heroSection = document.getElementById('chScrollHeroSection');
-    if(!heroSection) return;
+    if(!infoBar || !heroSection) return;
     
     const slides = document.querySelectorAll('.ch-hero-slide');
     const dots = document.querySelectorAll('.ch-dot');
@@ -420,6 +420,7 @@
     const intervalTime = 5000;
     let isPlaying = true;
 
+    // --- SLIDER FUNCTIONS ---
     function goToSlide(index) {
       slides.forEach(s => s.classList.remove('active'));
       dots.forEach(d => d.classList.remove('active'));
@@ -448,22 +449,32 @@
       isPlaying ? stopSlider() : startSlider();
     }
 
+    // --- SCROLL LOGIC (Targets ONLY the Info Bar) ---
     window.addEventListener('scroll', function() {
-      if (window.scrollY > 20) {
-        heroSection.style.opacity = '0';
-        heroSection.style.pointerEvents = 'none';
+      if (window.scrollY > 10) {
+        // Hide the info bar
+        infoBar.style.opacity = '0';
+        infoBar.style.pointerEvents = 'none'; // Prevents accidental clicks while hidden
+        
+        // Optional: Shrink the top padding of the container so it doesn't leave a big white gap
+        heroSection.querySelector('.ch-custom-hero-inner').style.paddingTop = '0px'; 
+        
         setTimeout(() => {
-          if(window.scrollY > 20) heroSection.style.display = 'none';
-        }, 400);
+          if(window.scrollY > 10) infoBar.style.display = 'none';
+        }, 400); // Matches the CSS transition time
       } else {
-        heroSection.style.display = 'block';
+        // Show the info bar
+        infoBar.style.display = 'flex'; // Flex is correct for the grid container
+        heroSection.querySelector('.ch-custom-hero-inner').style.paddingTop = '20px'; // Restore padding
+        
         setTimeout(() => {
-          heroSection.style.opacity = '1';
-          heroSection.style.pointerEvents = 'auto';
+          infoBar.style.opacity = '1';
+          infoBar.style.pointerEvents = 'auto';
         }, 10);
       }
     });
 
+    // --- EVENT LISTENERS ---
     nextBtn.addEventListener('click', () => { nextSlide(); stopSlider(); startSlider(); });
     prevBtn.addEventListener('click', () => { prevSlide(); stopSlider(); startSlider(); });
     playBtn.addEventListener('click', togglePlay);
