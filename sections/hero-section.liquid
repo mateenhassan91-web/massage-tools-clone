@@ -1,0 +1,481 @@
+{% schema %}
+{
+  "name": "Hero With Features",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Info Bar"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_title",
+      "label": "Feature 1 Title",
+      "default": "Consultative Sales"
+    },
+    {
+      "type": "text",
+      "id": "feature_1_text",
+      "label": "Feature 1 Text",
+      "default": "Contact us to find what you need!"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_title",
+      "label": "Feature 2 Title",
+      "default": "Price Matching"
+    },
+    {
+      "type": "text",
+      "id": "feature_2_text",
+      "label": "Feature 2 Text",
+      "default": "We guarantee the lowest cost around"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_title",
+      "label": "Feature 3 Title",
+      "default": "Financing Options"
+    },
+    {
+      "type": "text",
+      "id": "feature_3_text",
+      "label": "Feature 3 Text",
+      "default": "6, 12, 24 month financing options"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_title",
+      "label": "Feature 4 Title",
+      "default": "5-Star After-Purchase Support"
+    },
+    {
+      "type": "text",
+      "id": "feature_4_text",
+      "label": "Feature 4 Text",
+      "default": "Lifetime Tech Support & Replacement Parts"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg_color",
+      "label": "Icon Circle Background",
+      "default": "#f0edfe"
+    },
+    {
+      "type": "header",
+      "content": "Hero Slider"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button Background Color",
+      "default": "#5c5cff"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Electric Exam Chairs"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "Adjustable comfort for your spa or medical office"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop Electric Exam Chairs"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero With Features",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .ch-custom-hero-wrapper {
+    --ch-bg-bar: #ffffff;
+    --ch-text: #333333;
+    --ch-light-text: #666666;
+    --ch-accent-bg: {{ block.settings.icon_bg_color | default: '#f0edfe' }};
+    --ch-btn-color: {{ block.settings.btn_color | default: '#5c5cff' }};
+    --ch-btn-text: {{ block.settings.btn_text_color | default: '#ffffff' }};
+    --ch-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+    width: 100%;
+    background: #f4f4f6;
+    padding-bottom: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 10;
+  }
+  .ch-custom-hero-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 20px 0 20px;
+    background: var(--ch-bg-bar);
+  }
+  .ch-info-bar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 25px;
+  }
+  .ch-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ch-info-icon-wrap {
+    background: var(--ch-accent-bg);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ch-info-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #555;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .ch-info-content h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ch-text);
+    font-family: var(--ch-font-family);
+  }
+  .ch-info-content p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--ch-light-text);
+    font-family: var(--ch-font-family);
+  }
+  .ch-hero-carousel-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #e0e0e0;
+    aspect-ratio: 21 / 9;
+  }
+  .ch-hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 1;
+  }
+  .ch-hero-slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+  .ch-hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ch-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+  }
+  .ch-hero-overlay h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    font-family: var(--ch-font-family);
+  }
+  .ch-hero-overlay p {
+    font-size: clamp(16px, 1.5vw, 22px);
+    color: #fff;
+    margin: 0 0 30px 0;
+    font-family: var(--ch-font-family);
+  }
+  .ch-hero-btn {
+    background: var(--ch-btn-color);
+    color: var(--ch-btn-text);
+    padding: 14px 40px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: filter 0.2s;
+    font-family: var(--ch-font-family);
+  }
+  .ch-hero-btn:hover {
+    filter: brightness(0.85);
+  }
+  .ch-nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    width: 45px;
+    height: 45px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+  }
+  .ch-nav-arrow:hover { background: rgba(255,255,255,0.9); }
+  .ch-nav-arrow.prev { left: 20px; }
+  .ch-nav-arrow.next { right: 20px; }
+  .ch-nav-arrow svg { width: 20px; height: 20px; stroke: #333; fill: none; stroke-width: 2; }
+  .ch-controls-wrapper {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 4;
+    background: #fff;
+    padding: 6px 12px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .ch-pause-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px 0 0;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid #ddd;
+    margin-right: 5px;
+  }
+  .ch-pause-btn svg { width: 16px; height: 16px; stroke: #222; fill: #222; }
+  .ch-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .ch-dot.active { background: var(--ch-btn-color); }
+
+  @media (max-width: 992px) {
+    .ch-info-bar-grid { grid-template-columns: repeat(2, 1fr); }
+    .ch-nav-arrow { width: 35px; height: 35px; }
+    .ch-nav-arrow.prev { left: 10px; }
+    .ch-nav-arrow.next { right: 10px; }
+  }
+  @media (max-width: 600px) {
+    .ch-info-bar-grid { grid-template-columns: 1fr; gap: 15px; }
+    .ch-controls-wrapper { bottom: 10px; right: 10px; padding: 4px 10px; }
+  }
+</style>
+
+<div class="ch-custom-hero-wrapper" id="chScrollHeroSection">
+  <div class="ch-custom-hero-inner">
+    
+    <div class="ch-info-bar-grid">
+      <div class="ch-info-item">
+        <div class="ch-info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 22v-4M4 12H2M6 12H4M20 12h-2M22 12h-2M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83M19.07 19.07l-2.83-2.83M4.93 4.93l2.83 2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div class="ch-info-content">
+          <h4>{{ section.settings.feature_1_title }}</h4>
+          <p>{{ section.settings.feature_1_text }}</p>
+        </div>
+      </div>
+      <div class="ch-info-item">
+        <div class="ch-info-icon-wrap"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v2M12 16v2M12 12h.01"/><path d="M8 12h3M13 12h3"/></svg></div>
+        <div class="ch-info-content">
+          <h4>{{ section.settings.feature_2_title }}</h4>
+          <p>{{ section.settings.feature_2_text }}</p>
+        </div>
+      </div>
+      <div class="ch-info-item">
+        <div class="ch-info-icon-wrap"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"/></svg></div>
+        <div class="ch-info-content">
+          <h4>{{ section.settings.feature_3_title }}</h4>
+          <p>{{ section.settings.feature_3_text }}</p>
+        </div>
+      </div>
+      <div class="ch-info-item">
+        <div class="ch-info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <div class="ch-info-content">
+          <h4>{{ section.settings.feature_4_title }}</h4>
+          <p>{{ section.settings.feature_4_text }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ch-hero-carousel-container" id="chCarouselContainer">
+      
+      {% for block in section.blocks %}
+        <div class="ch-hero-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.title | escape }}">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1581595211176-2db7fd0ff0c8?q=80&w=2070&auto=format&fit=crop" alt="Placeholder">
+          {% endif %}
+          <div class="ch-hero-overlay">
+            <h2>{{ block.settings.title }}</h2>
+            <p>{{ block.settings.subtitle }}</p>
+            {% if block.settings.btn_text != blank %}
+              <a href="{{ block.settings.btn_link | default: '#' }}" class="ch-hero-btn">{{ block.settings.btn_text }}</a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+
+      <button class="ch-nav-arrow prev" id="chPrevArrow">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="ch-nav-arrow next" id="chNextArrow">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <div class="ch-controls-wrapper">
+        <button class="ch-pause-btn" id="chTogglePlayBtn">
+          <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+        </button>
+        {% for block in section.blocks %}
+          <div class="ch-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const heroSection = document.getElementById('chScrollHeroSection');
+    if(!heroSection) return;
+    
+    const slides = document.querySelectorAll('.ch-hero-slide');
+    const dots = document.querySelectorAll('.ch-dot');
+    const prevBtn = document.getElementById('chPrevArrow');
+    const nextBtn = document.getElementById('chNextArrow');
+    const playBtn = document.getElementById('chTogglePlayBtn');
+    
+    if(slides.length === 0) return;
+
+    let currentSlide = 0;
+    let slideInterval;
+    const intervalTime = 5000;
+    let isPlaying = true;
+
+    function goToSlide(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    function startSlider() {
+      if(slideInterval) clearInterval(slideInterval);
+      slideInterval = setInterval(nextSlide, intervalTime);
+      isPlaying = true;
+      playBtn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>';
+    }
+
+    function stopSlider() {
+      clearInterval(slideInterval);
+      isPlaying = false;
+      playBtn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>';
+    }
+
+    function togglePlay() {
+      isPlaying ? stopSlider() : startSlider();
+    }
+
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 20) {
+        heroSection.style.opacity = '0';
+        heroSection.style.pointerEvents = 'none';
+        setTimeout(() => {
+          if(window.scrollY > 20) heroSection.style.display = 'none';
+        }, 400);
+      } else {
+        heroSection.style.display = 'block';
+        setTimeout(() => {
+          heroSection.style.opacity = '1';
+          heroSection.style.pointerEvents = 'auto';
+        }, 10);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => { nextSlide(); stopSlider(); startSlider(); });
+    prevBtn.addEventListener('click', () => { prevSlide(); stopSlider(); startSlider(); });
+    playBtn.addEventListener('click', togglePlay);
+    
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+        stopSlider();
+        startSlider();
+      });
+    });
+
+    startSlider();
+  });
+</script>
