@@ -6,6 +6,7 @@
     font-family: {{ section.settings.font_family }};
   }
   
+  
   .header-inner {
     display: flex;
     align-items: center;
@@ -146,6 +147,9 @@
   }
   
   @media screen and (max-width: 480px) {
+    .header-actions{
+      display: none important!;
+    }
     .header-wrapper { padding: 0 1rem; }
     .action-group strong, .action-group small { display: none; }
     .header-logo { flex-direction: row; justify-content: center; text-align: center; }
