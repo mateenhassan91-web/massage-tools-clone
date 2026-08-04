@@ -1,0 +1,282 @@
+<section
+  class="experience-showcase"
+  style="
+    --section-bg: {{ section.settings.section_bg }};
+    --card-bg: {{ section.settings.card_bg }};
+    --heading-color: {{ section.settings.heading_color }};
+    --text-color: {{ section.settings.text_color }};
+    --button-color: {{ section.settings.button_color }};
+    --button-text: {{ section.settings.button_text }};
+    --badge-bg: {{ section.settings.badge_bg }};
+    --badge-text: {{ section.settings.badge_text }};
+  "
+>
+
+<div class="experience-showcase__container">
+
+<div class="experience-showcase__grid">
+
+<div class="experience-card">
+
+<div class="experience-rating">
+
+<div class="experience-stars">
+★★★★★
+</div>
+
+<div class="experience-review">
+
+<span class="experience-score">
+{{ section.settings.rating }}
+</span>
+
+{% if section.settings.review_link != blank %}
+<a href="{{ section.settings.review_link }}">
+{{ section.settings.review_text }}
+</a>
+{% else %}
+{{ section.settings.review_text }}
+{% endif %}
+
+</div>
+
+</div>
+
+{% if section.settings.heading != blank %}
+<h2 class="experience-title">
+{{ section.settings.heading }}
+</h2>
+{% endif %}
+
+{% if section.blocks.size > 0 %}
+<div class="experience-badges">
+
+{% for block in section.blocks %}
+
+{% case block.type %}
+
+{% when 'badge' %}
+
+<span
+class="experience-badge"
+{{ block.shopify_attributes }}>
+{{ block.settings.text }}
+</span>
+
+{% endcase %}
+
+{% endfor %}
+
+</div>
+{% endif %}
+
+<div class="experience-description">
+
+{{ section.settings.description }}
+
+</div>
+
+<div class="experience-buttons">
+
+{% if section.settings.phone_text != blank %}
+<a
+class="experience-button"
+href="{{ section.settings.phone_url }}">
+
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+<path d="M22 17.92V21a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.29 20a19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 1 4.18 2 2 0 0 1 3 2h3.09a2 2 0 0 1 2 1.72l.38 2.66a2 2 0 0 1-.57 1.7L6.7 9.3a16 16 0 0 0 8 8l1.22-1.2a2 2 0 0 1 1.69-.58l2.67.39A2 2 0 0 1 22 17.92Z" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+<span>{{ section.settings.phone_text }}</span>
+
+</a>
+{% endif %}
+
+{% if section.settings.email_text != blank %}
+<a
+class="experience-button"
+href="{{ section.settings.email_url }}">
+
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+<path d="M4 4H20V20H4V4ZM4 6L12 13L20 6" stroke="currentColor" stroke-width="2"/>
+</svg>
+
+<span>{{ section.settings.email_text }}</span>
+
+</a>
+{% endif %}
+
+</div>
+
+</div>
+
+<div class="experience-image">
+
+<picture>
+
+{% if section.settings.mobile_image != blank %}
+<source
+media="(max-width:768px)"
+srcset="{{ section.settings.mobile_image | image_url: width:900 }}">
+{% endif %}
+
+{% if section.settings.desktop_image != blank %}
+
+<img
+src="{{ section.settings.desktop_image | image_url: width:1200 }}"
+alt="{{ section.settings.heading }}"
+loading="lazy"
+width="{{ section.settings.desktop_image.width }}"
+height="{{ section.settings.desktop_image.height }}">
+
+{% endif %}
+
+</picture>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+{% schema %}
+{
+  "name":"Experience Showcase",
+  "settings":[
+    {
+      "type":"image_picker",
+      "id":"desktop_image",
+      "label":"Desktop Image"
+    },
+    {
+      "type":"image_picker",
+      "id":"mobile_image",
+      "label":"Mobile Image"
+    },
+    {
+      "type":"text",
+      "id":"rating",
+      "label":"Rating",
+      "default":"4.7"
+    },
+    {
+      "type":"text",
+      "id":"review_text",
+      "label":"Review Text",
+      "default":"Over 1,500 Reviews"
+    },
+    {
+      "type":"url",
+      "id":"review_link",
+      "label":"Review Link"
+    },
+    {
+      "type":"textarea",
+      "id":"heading",
+      "label":"Heading",
+      "default":"The Experience You Deserve"
+    },
+    {
+      "type":"richtext",
+      "id":"description",
+      "label":"Description",
+      "default":"<p>Add your content here.</p>"
+    },
+    {
+      "type":"text",
+      "id":"phone_text",
+      "default":"866.961.9421",
+      "label":"Phone Button Text"
+    },
+    {
+      "type":"url",
+      "id":"phone_url",
+      "label":"Phone Link"
+    },
+    {
+      "type":"text",
+      "id":"email_text",
+      "default":"Email Us",
+      "label":"Email Button Text"
+    },
+    {
+      "type":"url",
+      "id":"email_url",
+      "label":"Email Link"
+    },
+
+    {
+      "type":"color",
+      "id":"section_bg",
+      "label":"Section Background",
+      "default":"#f5f6f6"
+    },
+    {
+      "type":"color",
+      "id":"card_bg",
+      "label":"Card Background",
+      "default":"#ffffff"
+    },
+    {
+      "type":"color",
+      "id":"heading_color",
+      "label":"Heading Color",
+      "default":"#222222"
+    },
+    {
+      "type":"color",
+      "id":"text_color",
+      "label":"Text Color",
+      "default":"#4d4d4d"
+    },
+    {
+      "type":"color",
+      "id":"badge_bg",
+      "label":"Badge Background",
+      "default":"#72F1BF"
+    },
+    {
+      "type":"color",
+      "id":"badge_text",
+      "label":"Badge Text",
+      "default":"#1f1f1f"
+    },
+    {
+      "type":"color",
+      "id":"button_color",
+      "label":"Button Border",
+      "default":"#5148ff"
+    },
+    {
+      "type":"color",
+      "id":"button_text",
+      "label":"Button Text",
+      "default":"#5148ff"
+    }
+  ],
+
+  "blocks":[
+    {
+      "type":"badge",
+      "name":"Badge",
+      "settings":[
+        {
+          "type":"text",
+          "id":"text",
+          "label":"Badge Text"
+        }
+      ]
+    }
+  ],
+
+  "max_blocks":6,
+
+  "presets":[
+    {
+      "name":"Experience Showcase"
+    }
+  ]
+}
+{% endschema %}
