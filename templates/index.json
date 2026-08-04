@@ -414,6 +414,31 @@
     },
     "exp_showcase_w96Dkd": {
       "type": "exp-showcase",
+      "blocks": {
+        "badge_eD8zWg": {
+          "type": "badge",
+          "settings": {
+            "text": "Over 1,000 Products"
+          }
+        },
+        "badge_7kLtWt": {
+          "type": "badge",
+          "settings": {
+            "text": "50,000 Customers Served"
+          }
+        },
+        "badge_WNttxX": {
+          "type": "badge",
+          "settings": {
+            "text": "20 Years in Business"
+          }
+        }
+      },
+      "block_order": [
+        "badge_eD8zWg",
+        "badge_7kLtWt",
+        "badge_WNttxX"
+      ],
       "name": "Experience Showcase",
       "settings": {
         "desktop_image": "shopify://shop_images/avg-rating.webp",
