@@ -301,6 +301,7 @@
         "slide_fBa9aF": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/banner-slide-1.webp",
             "title": "Electric Exam Chairs",
             "subtitle": "Adjustable comfort for your spa or medical office",
             "btn_text": "Shop Electric Exam Chairs",
@@ -316,9 +317,20 @@
             "btn_link": ""
           }
         },
+        "slide_8fd3B7": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/slide-4.png",
+            "title": "Electric Exam Chairs",
+            "subtitle": "Adjustable comfort for your spa or medical office",
+            "btn_text": "Shop Electric Exam Chairs",
+            "btn_link": ""
+          }
+        },
         "slide_94yXNR": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/banner-slide-1.webp",
             "title": "Electric Exam Chairs",
             "subtitle": "Adjustable comfort for your spa or medical office",
             "btn_text": "Shop Electric Exam Chairs",
@@ -329,6 +341,7 @@
       "block_order": [
         "slide_fBa9aF",
         "slide_YTbctN",
+        "slide_8fd3B7",
         "slide_94yXNR"
       ],
       "name": "Hero With Features",
