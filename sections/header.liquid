@@ -1,0 +1,513 @@
+{%- style -%}
+  .header-wrapper {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    padding: 0 2rem;
+    font-family: {{ section.settings.font_family }};
+  }
+  
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 15px 0;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  /* Header Top Row */
+  .header-top {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; 
+  }
+
+  /* Logo Section */
+  .header-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: {{ section.settings.text_color }};
+    flex-shrink: 0;
+  }
+  .logo-icon-wrapper { margin-right: 12px; 
+  height: 37px;
+}
+  .logo-svg { width: 45px; height: 45px; }
+  .logo-text-wrapper { display: flex; flex-direction: column; line-height: 0.9; }
+  .logo-primary { font-size: 28px; font-weight: 400; letter-spacing: -0.5px; font-family: 'Georgia', serif; font-style: italic; }
+  .logo-secondary { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; font-weight: 600; }
+
+  /* Search Bar */
+  .header-search {
+    flex-grow: 1;
+    max-width: 650px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 2px;
+    overflow: hidden;
+  }
+  .header-search input {
+    border: none; outline: none; flex-grow: 1; padding: 12px 18px; font-size: 14px; color: #555; background: transparent; width: 100%;
+  }
+  .header-search button {
+    background: {{ section.settings.search_btn_color }};
+    border: none; border-radius: 6px; width: 48px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #ffffff; margin-right: 4px; flex-shrink: 0;
+  }
+  .header-search button svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Right Actions (Contact, Account, Cart) */
+  .header-actions { display: flex; align-items: center; gap: 25px; flex-wrap: wrap; }
+  .action-group { display: flex; flex-direction: column; line-height: 1.2; }
+  .action-group strong { font-size: 16px; font-weight: 600; }
+  .action-group small { font-size: 12px; opacity: 0.8; }
+  .action-link-wrapper { display: flex; align-items: center; gap: 5px; text-decoration: none; color: {{ section.settings.text_color }}; cursor: pointer; }
+  .action-link-wrapper svg { width: 22px; height: 22px; fill: currentColor; }
+
+  /* Cart Icon */
+  .header-cart { position: relative; display: flex; align-items: center; text-decoration: none; color: {{ section.settings.text_color }}; }
+  .cart-count { background-color: {{ section.settings.cart_badge_color }}; color: #1a1c23; font-weight: 600; border-radius: 50%; padding: 2px 8px; font-size: 14px; margin-left: 5px; min-width: 28px; text-align: center; }
+
+  /* Navigation Menu */
+  .header-nav { width: 100%; margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.1); overflow-x: auto; white-space: nowrap; display: flex; justify-content: center; position: relative; }
+  .nav-list { display: flex; list-style: none; padding: 0; margin: 0; gap: 20px; font-size: 14px; font-weight: 500; }
+  .nav-list li { position: relative; display: inline-flex; align-items: center; flex-direction: column; }
+  .nav-list li > a { text-decoration: none; color: {{ section.settings.text_color }}; padding: 5px 0; }
+  .nav-list li span { margin-left: 4px; font-size: 10px; cursor: pointer; }
+  
+  /* Dropdown Menus */
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: {{ section.settings.bg_color }};
+    min-width: 200px;
+    padding: 10px 0;
+    list-style: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 10;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    white-space: normal;
+  }
+  .nav-dropdown li { display: block; padding: 0; margin: 0; }
+  .nav-dropdown li a { display: block; padding: 10px 20px; color: {{ section.settings.text_color }}; }
+  
+  /* Desktop Hover */
+  @media (min-width: 990px) {
+    .nav-list li:hover .nav-dropdown { display: block; }
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 989px) {
+    .header-top { flex-direction: column; align-items: stretch; }
+    .header-logo { justify-content: center; margin-bottom: 10px; }
+    .header-actions { justify-content: space-around; gap: 15px; }
+    
+    /* Mobile Menu Styling */
+    .header-nav { white-space: normal; justify-content: flex-start; padding-bottom: 10px; display: block; }
+    .nav-list { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 0; display: none; }
+    .nav-list.active { display: flex; }
+    
+    /* Mobile Hamburger */
+    .mobile-toggle {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: {{ section.settings.text_color }};
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .nav-dropdown {
+      position: static;
+      display: none;
+      background: rgba(255,255,255,0.05);
+      border: none;
+      box-shadow: none;
+      padding-left: 15px;
+      margin-top: 5px;
+    }
+    .nav-dropdown.active { display: block; }
+  }
+  @media (min-width: 990px) {
+    .mobile-toggle { display: none; }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .header-wrapper { padding: 0 1rem; }
+    .action-group strong, .action-group small { display: none; }
+    .header-logo { flex-direction: row; justify-content: center; text-align: center; }
+    .header-actions { flex-wrap: wrap; justify-content: center; }
+  }
+
+  /* ========================================= */
+  /* CONTACT POPUP CSS (Moved to the very bottom to prevent breaking code) */
+  /* ========================================= */
+    .contact-popup-overlay {
+    position: absolute !important; /* Changed from fixed to absolute */
+    top: 100% !important; /* Positions it exactly at the bottom of the Contact Us button */
+    left: 50% !important; /* Starts from the center of the parent */
+    transform: translateX(-50%) !important; /* Shifts it left by half its width to perfectly center it */
+    width: 350px !important; /* Fixed width */
+    background: #ffffff !important;
+    /* Removed backdrop-filter (blur) */
+    /* Removed full screen width/height to make it a tiny dropdown */
+    z-index: 999999 !important;
+    display: none !important;
+    padding: 0 !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    border-radius: 8px !important;
+    box-sizing: border-box !important;
+    margin-top: 10px !important; /* Adds a tiny gap between the text and the popup */
+  }
+
+   .contact-popup-overlay.active {
+    display: block !important;
+  }
+
+  .contact-popup-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    color: #333;
+    text-align: left;
+    font-family: inherit;
+    margin: 0 auto !important;
+  }
+
+  .popup-header { padding: 25px 25px 20px; background: #fff; }
+  .popup-header h3 { margin: 0 0 8px 0; font-size: 22px; font-weight: 600; color: #333; }
+  .popup-header p { margin: 0; font-size: 15px; color: #555; line-height: 1.4; }
+
+  .popup-icons-bar { background: #343a40; display: flex; justify-content: space-around; padding: 20px 15px; }
+  .icon-item { display: flex; flex-direction: column; align-items: center; color: #fff; gap: 8px; }
+  .icon-item svg { width: 32px; height: 32px; stroke: #fff; }
+  .icon-item span { font-size: 14px; }
+
+  .popup-info-text { padding: 25px; background: #fff; }
+  .popup-info-text p { margin: 0 0 12px 0; font-size: 16px; color: #333; }
+  .popup-info-text p:last-child { margin-bottom: 0; }
+
+  .popup-footer { background: #343a40; padding: 15px 25px; text-align: center; }
+  .popup-footer p { margin: 0; color: #fff; font-size: 15px; }
+
+  .popup-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+    padding: 5px;
+    z-index: 10;
+  }
+  .popup-close-btn:hover { color: #333; }
+{%- endstyle -%}
+
+<div class="header-wrapper">
+  <div class="header-inner">
+    
+    <!-- Top Row -->
+    <div class="header-top">
+      
+      <!-- Logo -->
+      <a href="{{ routes.root_url }}" class="header-logo">
+        <div class="logo-icon-wrapper">
+         <svg class="mt-desktop-logo">
+        <path id="store-logo-Vector" d="M34.9253 25.7725H34.9333C27.0924 24.4129 21.9867 16.7482 23.7388 8.97219H23.7309C24.6426 4.96493 22.0581 1.06897 18.1099 0.281833C14.2014 -0.497358 10.4039 2.04694 9.62691 5.96674C8.84203 9.9104 11.4186 13.8064 15.4857 14.506H15.4778C23.3187 15.8656 28.4243 23.5303 26.6722 31.3063H26.6802C25.7684 35.3136 28.353 39.2096 32.3011 39.9967C36.2097 40.7759 40.0072 38.2316 40.7842 34.3118C41.569 30.3681 38.9924 26.4722 34.9253 25.7725Z" fill="#1AFFBD"/> <path id="store-logo-Vector_2" d="M9.05505 39.9464C12.933 39.0285 15.3347 35.1316 14.4194 31.2425C13.5041 27.3534 9.61848 24.9448 5.74055 25.8627C1.86262 26.7806 -0.53908 30.6775 0.376194 34.5666C1.29147 38.4557 5.17712 40.8643 9.05505 39.9464Z" fill="#1AFFBD"/> <path id="store-logo-Vector_3" d="M56.1517 25.7725H56.1596C48.3187 24.4129 43.2131 16.7482 44.9652 8.97219H44.9572C45.869 4.96493 43.2844 1.06897 39.3362 0.281833C35.4277 -0.497358 31.6302 2.04694 30.8532 5.96674C30.0683 9.9104 32.645 13.8064 36.7121 14.506H36.7041C44.545 15.8656 49.6507 23.5303 47.8985 31.3063H47.9065C46.9947 35.3136 49.5793 39.2096 53.5275 39.9967C57.436 40.7759 61.2335 38.2316 62.0105 34.3118C62.7954 30.3681 60.2187 26.4722 56.1517 25.7725Z" fill="#1AFFBD"/> </g> <g id="store-logo-Group 8394"> <g id="store-logo-Group 8395"> <path id="store-logo-Vector_4" d="M78.724 33.4157H76.033V39.9677H74.8026V33.4157H72.126V32.3044H78.724V33.4157Z" fill="white"/> <path id="store-logo-Vector_5" d="M87.1698 33.3079C87.9397 32.5358 88.8822 32.1462 89.9975 32.1462C91.1127 32.1462 92.0625 32.5358 92.8324 33.3151C93.6023 34.0945 93.9908 35.0398 93.9908 36.151C93.9908 37.2623 93.6023 38.2076 92.8324 38.9724C92.0625 39.7373 91.1199 40.127 89.9975 40.127C88.875 40.127 87.9397 39.7445 87.1698 38.9724C86.3999 38.2003 86.0186 37.2623 86.0186 36.151C86.0186 35.0398 86.3999 34.08 87.1698 33.3079ZM88.0404 38.1643C88.5657 38.7055 89.2204 38.9797 89.9975 38.9797C90.7746 38.9797 91.4293 38.7127 91.9546 38.1643C92.487 37.6231 92.7533 36.952 92.7533 36.151C92.7533 35.35 92.487 34.6645 91.9546 34.1233C91.4221 33.5821 90.7674 33.3079 89.9975 33.3079C89.2276 33.3079 88.5728 33.5821 88.0404 34.1233C87.5152 34.6717 87.2489 35.3428 87.2489 36.151C87.2489 36.9592 87.5152 37.6231 88.0404 38.1643Z" fill="white"/> <path id="store-logo-Vector_6" d="M103.065 33.3079C103.835 32.5358 104.778 32.1462 105.893 32.1462C107.008 32.1462 107.958 32.5358 108.728 33.3151C109.498 34.0945 109.886 35.0398 109.886 36.151C109.886 37.2623 109.498 38.2076 108.728 38.9724C107.958 39.7373 107.015 40.127 105.893 40.127C104.771 40.127 103.835 39.7445 103.065 38.9724C102.295 38.2003 101.914 37.2623 101.914 36.151C101.914 35.0398 102.295 34.08 103.065 33.3079ZM103.936 38.1643C104.461 38.7055 105.116 38.9797 105.893 38.9797C106.67 38.9797 107.325 38.7127 107.85 38.1643C108.383 37.6231 108.649 36.952 108.649 36.151C108.649 35.35 108.383 34.6645 107.85 34.1233C107.318 33.5821 106.663 33.3079 105.893 33.3079C105.123 33.3079 104.468 33.5821 103.936 34.1233C103.411 34.6717 103.144 35.3428 103.144 36.151C103.144 36.9592 103.411 37.6231 103.936 38.1643Z" fill="white"/> <path id="store-logo-Vector_7" d="M123.549 38.8638V39.975H118.16V32.3117H119.383V38.8638H123.557H123.549Z" fill="white"/> <path id="store-logo-Vector_8" d="M134.291 32.1533C135.061 32.1533 135.708 32.3481 136.233 32.7378C136.759 33.1274 137.097 33.6542 137.233 34.3181L136.01 34.5706C135.946 34.1665 135.751 33.8418 135.427 33.5965C135.111 33.3511 134.722 33.2284 134.262 33.2284C133.801 33.2284 133.456 33.3367 133.175 33.5532C132.902 33.7696 132.765 34.0511 132.765 34.3902C132.765 34.6572 132.844 34.8665 132.995 35.018C133.154 35.1695 133.398 35.2778 133.729 35.3499L135.384 35.7035C136.694 35.9922 137.341 36.6921 137.341 37.7961C137.341 38.5105 137.075 39.0806 136.536 39.5063C135.996 39.9321 135.291 40.1413 134.406 40.1413C133.521 40.1413 132.844 39.9393 132.262 39.5424C131.679 39.1383 131.341 38.5827 131.247 37.8683L132.549 37.5941C132.643 38.0776 132.859 38.4384 133.211 38.6837C133.564 38.929 133.996 39.0517 134.521 39.0517C135.046 39.0517 135.413 38.9435 135.701 38.727C135.989 38.5105 136.125 38.2219 136.125 37.8611C136.125 37.5724 136.046 37.3487 135.881 37.1972C135.715 37.0457 135.442 36.9302 135.053 36.8436L133.391 36.4973C132.103 36.2014 131.463 35.5087 131.463 34.4191C131.463 33.7408 131.722 33.1924 132.233 32.7811C132.744 32.3625 133.427 32.1605 134.269 32.1605L134.291 32.1533Z" fill="white"/> </g> <path id="store-logo-Vector_9" d="M109.161 24.5531C107.636 24.5531 106.355 24.1418 105.319 23.3192C104.283 22.4966 103.765 21.3059 103.765 19.7617C103.765 18.5855 104.398 17.5104 105.657 16.5218C106.916 15.5332 108.902 14.7899 111.607 14.292C112.025 14.2199 112.5 14.1333 113.025 14.0467C113.55 13.9601 114.104 13.8663 114.68 13.7653V10.8067C114.68 9.111 114.464 7.91316 114.032 7.22764C113.6 6.54213 112.924 6.19576 112.003 6.19576C111.37 6.19576 110.873 6.39059 110.507 6.78026C110.14 7.16992 109.902 7.83378 109.794 8.78629L109.715 9.1976C109.665 10.2728 109.384 11.0593 108.888 11.5572C108.391 12.0551 107.772 12.3077 107.031 12.3077C106.348 12.3077 105.779 12.1056 105.333 11.7087C104.887 11.3119 104.664 10.7707 104.664 10.0996C104.664 9.07492 105.038 8.21623 105.787 7.51628C106.535 6.81634 107.528 6.28957 108.765 5.94321C110.003 5.59684 111.341 5.41644 112.787 5.41644C115.126 5.41644 116.932 5.95764 118.205 7.04724C119.479 8.13685 120.119 9.90476 120.119 12.351V20.6349C120.119 21.7605 120.673 22.3234 121.774 22.3234H122.645L122.997 22.6265C122.501 23.2254 121.954 23.6872 121.364 24.0119C120.774 24.3366 119.939 24.4954 118.86 24.4954C117.702 24.4954 116.788 24.2428 116.119 23.7305C115.45 23.2182 115.011 22.5399 114.795 21.6884C114.003 22.4894 113.198 23.1677 112.37 23.7305C111.543 24.2933 110.471 24.5748 109.154 24.5748L109.161 24.5531ZM111.564 22.2657C112.089 22.2657 112.586 22.1502 113.039 21.9121C113.5 21.674 114.047 21.3059 114.673 20.808V14.5157C114.406 14.5663 114.147 14.6168 113.881 14.6673C113.615 14.7178 113.313 14.7683 112.974 14.8188C111.766 15.1219 110.802 15.627 110.075 16.3342C109.348 17.0485 108.988 18.001 108.988 19.1989C108.988 20.2235 109.24 20.9884 109.737 21.5008C110.233 22.0131 110.838 22.2657 111.55 22.2657H111.564Z" fill="white"/> <path id="store-logo-Vector_10" d="M167.606 24.5531C166.081 24.5531 164.8 24.1418 163.764 23.3192C162.728 22.4966 162.21 21.3059 162.21 19.7617C162.21 18.5855 162.843 17.5104 164.102 16.5218C165.361 15.5332 167.347 14.7899 170.053 14.292C170.47 14.2199 170.945 14.1333 171.47 14.0467C171.995 13.9601 172.549 13.8663 173.125 13.7653V10.8067C173.125 9.111 172.909 7.91316 172.477 7.22764C172.046 6.54213 171.369 6.19576 170.448 6.19576C169.815 6.19576 169.319 6.39059 168.952 6.78026C168.585 7.16992 168.347 7.83378 168.24 8.78629L168.16 9.1976C168.11 10.2728 167.829 11.0593 167.333 11.5572C166.836 12.0551 166.218 12.3077 165.477 12.3077C164.793 12.3077 164.225 12.1056 163.779 11.7087C163.332 11.3119 163.109 10.7707 163.109 10.0996C163.109 9.07492 163.484 8.21623 164.232 7.51628C164.98 6.81634 165.973 6.28957 167.211 5.94321C168.448 5.59684 169.786 5.41644 171.233 5.41644C173.571 5.41644 175.377 5.95764 176.651 7.04724C177.924 8.13685 178.565 9.90476 178.565 12.351V20.6349C178.565 21.7605 179.119 22.3234 180.22 22.3234H181.09L181.443 22.6265C180.946 23.2254 180.399 23.6872 179.809 24.0119C179.219 24.3366 178.385 24.4954 177.305 24.4954C176.147 24.4954 175.233 24.2428 174.564 23.7305C173.895 23.2182 173.456 22.5399 173.24 21.6884C172.449 22.4894 171.643 23.1677 170.815 23.7305C169.988 24.2933 168.916 24.5748 167.599 24.5748L167.606 24.5531ZM170.01 22.2657C170.535 22.2657 171.031 22.1502 171.485 21.9121C171.945 21.674 172.492 21.3059 173.118 20.808V14.5157C172.852 14.5663 172.593 14.6168 172.326 14.6673C172.06 14.7178 171.758 14.7683 171.42 14.8188C170.211 15.1219 169.247 15.627 168.52 16.3342C167.793 17.0485 167.434 18.001 167.434 19.1989C167.434 20.2235 167.685 20.9884 168.182 21.5008C168.678 22.0131 169.283 22.2657 169.995 22.2657H170.01Z" fill="white"/> <path id="store-logo-Vector_11" d="M197.769 7.85566C198.718 8.85868 199.186 10.1431 199.186 11.7162C199.186 13.4624 198.51 14.9056 197.157 16.0458C195.804 17.1859 193.811 17.7487 191.185 17.7487C189.372 17.7487 187.832 17.4601 186.573 16.89V18.1672C186.573 18.9393 186.983 19.4012 187.796 19.5527L195.207 20.866C196.445 21.0897 197.56 21.3855 198.56 21.7463C199.56 22.1071 200.359 22.6195 200.963 23.2833C201.568 23.9472 201.87 24.8492 201.87 25.9965C201.87 27.2232 201.452 28.3489 200.611 29.388C199.769 30.4271 198.524 31.2642 196.884 31.8992C195.243 32.5342 193.2 32.8517 190.753 32.8517C188.652 32.8517 186.983 32.6424 185.745 32.2311C184.508 31.8198 183.637 31.2858 183.126 30.6364C182.615 29.9869 182.356 29.3014 182.356 28.5726C182.356 27.6706 182.68 26.7686 183.321 25.8594C183.961 24.9502 184.76 24.2142 185.702 23.6658C184.889 23.3699 184.299 22.9803 183.925 22.504C183.558 22.0278 183.371 21.5154 183.371 20.967C183.371 20.4691 183.508 20.0001 183.788 19.5599C184.062 19.127 184.4 18.6796 184.796 18.2322L186.098 16.6591C184.177 15.6128 183.22 13.9603 183.22 11.7162C183.22 9.91942 183.896 8.45458 185.249 7.33611C186.602 6.21043 188.595 5.64758 191.221 5.64758C192.559 5.64758 193.739 5.79912 194.747 6.09497C195.761 6.39804 196.596 6.81657 197.25 7.37219L197.761 7.85566H197.769ZM185.27 27.3748C185.27 28.8468 185.753 29.9581 186.71 30.7085C187.666 31.459 189.185 31.8342 191.264 31.8342C193.444 31.8342 195.092 31.4951 196.193 30.824C197.294 30.1529 197.848 29.2004 197.848 27.9737C197.848 27.2738 197.581 26.7109 197.042 26.2852C196.502 25.8594 195.588 25.5347 194.3 25.311L187.163 24.0338C186.954 23.9833 186.745 23.9328 186.53 23.8823C186.163 24.3802 185.861 24.9502 185.623 25.5852C185.386 26.2202 185.27 26.8119 185.27 27.3676V27.3748ZM191.142 16.9983C192.192 16.9983 192.962 16.5869 193.451 15.7643C193.941 14.9417 194.178 13.5635 194.178 11.644C194.178 9.72459 193.933 8.36799 193.451 7.58146C192.962 6.79492 192.221 6.39804 191.221 6.39804C190.221 6.39804 189.516 6.80213 189.012 7.61753C188.516 8.42572 188.264 9.79675 188.264 11.7234C188.264 13.6501 188.494 15.0067 188.954 15.8076C189.415 16.6086 190.142 17.0055 191.142 17.0055V16.9983Z" fill="white"/> <path id="store-logo-Vector_12" d="M132.466 24.5532C131.178 24.5532 130.02 24.4089 128.998 24.1203C127.969 23.8316 127.027 23.478 126.156 23.0523L126.192 18.5928H126.588L127.926 20.837C128.502 21.84 129.142 22.576 129.84 23.0667C130.538 23.5502 131.423 23.7955 132.502 23.7955C133.761 23.7955 134.783 23.5286 135.56 22.9874C136.337 22.4534 136.726 21.7318 136.726 20.8298C136.726 20.0072 136.452 19.3289 135.898 18.8093C135.344 18.2826 134.323 17.8135 132.826 17.3878L131.171 16.9043C129.567 16.4569 128.307 15.757 127.386 14.8045C126.465 13.8592 126.005 12.6974 126.005 11.3192C126.005 9.67395 126.688 8.27406 128.056 7.11951C129.423 5.97217 131.38 5.3949 133.934 5.3949C134.956 5.3949 135.927 5.50314 136.834 5.7124C137.74 5.92166 138.611 6.24638 139.453 6.6649L139.215 10.713H138.82L137.438 8.38951C136.942 7.5669 136.445 6.9824 135.963 6.65047C135.474 6.31132 134.747 6.14535 133.776 6.14535C132.883 6.14535 132.042 6.38348 131.25 6.85973C130.459 7.33599 130.07 8.00707 130.07 8.8802C130.07 9.75332 130.408 10.4028 131.077 10.9007C131.747 11.3986 132.74 11.8604 134.056 12.2861L135.834 12.7768C137.726 13.3252 139.079 14.0829 139.892 15.0426C140.705 16.0023 141.115 17.1569 141.115 18.5063C141.115 20.3319 140.359 21.7895 138.848 22.8863C137.337 23.9832 135.215 24.5316 132.481 24.5316L132.466 24.5532Z" fill="white"/> <path id="store-logo-Vector_13" d="M150.567 24.5532C149.279 24.5532 148.12 24.4089 147.099 24.1203C146.07 23.8316 145.127 23.478 144.257 23.0523L144.293 18.5928H144.688L146.027 20.837C146.602 21.84 147.243 22.576 147.941 23.0667C148.638 23.5502 149.523 23.7955 150.603 23.7955C151.862 23.7955 152.884 23.5286 153.661 22.9874C154.438 22.4534 154.826 21.7318 154.826 20.8298C154.826 20.0072 154.553 19.3289 153.999 18.8093C153.445 18.2826 152.423 17.8135 150.927 17.3878L149.272 16.9043C147.667 16.4569 146.408 15.757 145.487 14.8045C144.566 13.8592 144.105 12.6974 144.105 11.3192C144.105 9.67395 144.789 8.27406 146.156 7.11951C147.523 5.97217 149.48 5.3949 152.035 5.3949C153.056 5.3949 154.028 5.50314 154.934 5.7124C155.841 5.92166 156.711 6.24638 157.553 6.6649L157.316 10.713H156.92L155.539 8.38951C155.042 7.5669 154.546 6.9824 154.064 6.65047C153.574 6.31132 152.848 6.14535 151.876 6.14535C150.984 6.14535 150.142 6.38348 149.351 6.85973C148.559 7.33599 148.171 8.00707 148.171 8.8802C148.171 9.75332 148.509 10.4028 149.178 10.9007C149.847 11.3986 150.84 11.8604 152.157 12.2861L153.934 12.7768C155.826 13.3252 157.179 14.0829 157.992 15.0426C158.805 16.0023 159.215 17.1569 159.215 18.5063C159.215 20.3319 158.46 21.7895 156.949 22.8863C155.438 23.9832 153.315 24.5316 150.581 24.5316L150.567 24.5532Z" fill="white"/> <path id="store-logo-Vector_14" d="M99.9995 1.46924C100.179 1.15896 100.525 0.920832 101.021 0.740433L101.654 0.516739V0.14151H93.8908L87.0266 17.6402L79.7307 0.14151H72.1182V0.516739L73.1399 0.964127C73.6435 1.16617 73.9457 1.41873 74.0681 1.71458C74.1832 2.01765 74.2479 2.41453 74.2479 2.91243V21.4213C74.2479 21.9192 74.1904 22.3594 74.0896 22.7346C73.9817 23.1098 73.6939 23.3696 73.219 23.5212L72.1541 23.8531V24.2283H77.7952V23.8531L76.4928 23.5212C75.9676 23.3985 75.6222 23.1315 75.4495 22.7346C75.2769 22.3377 75.1905 21.8831 75.1905 21.3852V12.0983L75.0682 3.41033L83.6592 24.2428H85.6307L93.8692 3.14334L93.7901 13.224V21.6522C93.7901 22.1501 93.7181 22.5398 93.5958 22.814C93.4663 23.0882 93.1497 23.3263 92.6532 23.5284L91.8258 23.8675V24.2428H101.64V23.8675L100.856 23.5284C100.352 23.3263 100.035 23.0882 99.9132 22.814C99.7837 22.5398 99.7189 22.1573 99.7189 21.6522V2.68874C99.7189 2.19084 99.8124 1.77953 99.9923 1.46924H99.9995Z" fill="white"/> <path id="store-logo-Vector_15" d="M212.064 5.4091C213.769 5.4091 215.23 5.74104 216.439 6.4049C217.648 7.06877 218.576 7.96355 219.216 9.10366C219.857 10.2366 220.18 11.5354 220.18 12.9786C220.18 13.2528 220.166 13.5343 220.144 13.8229C220.116 14.1115 220.065 14.3641 219.986 14.595H208.236C208.265 17.2938 208.769 19.2348 209.755 20.4183C210.74 21.6089 212.208 22.2006 214.151 22.2006C215.468 22.2006 216.532 21.9985 217.345 21.6017C218.159 21.2048 218.921 20.6131 219.634 19.841L220.029 20.1801C219.216 21.5512 218.13 22.6263 216.777 23.3984C215.424 24.1705 213.798 24.5602 211.906 24.5602C210.014 24.5602 208.38 24.1778 206.941 23.4201C205.495 22.6552 204.365 21.5656 203.552 20.144C202.739 18.7225 202.329 17.0195 202.329 15.0496C202.329 13.0796 202.804 11.2612 203.747 9.82526C204.696 8.38929 205.905 7.29968 207.394 6.54922C208.877 5.79876 210.438 5.42354 212.064 5.42354V5.4091ZM211.949 6.15956C211.186 6.15956 210.539 6.37604 209.999 6.81621C209.46 7.25638 209.042 8.02849 208.74 9.13974C208.438 10.251 208.272 11.8169 208.244 13.8445H214.985C215.252 11.1241 215.144 9.16139 214.669 7.96355C214.194 6.7657 213.287 6.16678 211.949 6.16678V6.15956Z" fill="white"/> 
+    </svg>
+        </div>
+        <div class="logo-text-wrapper">
+          <span class="logo-primary">{{ section.settings.logo_text_primary }}</span>
+          <span class="logo-secondary">{{ section.settings.logo_text_secondary }}</span>
+        </div>
+      </a>
+
+      <!-- Search -->
+      <div class="header-search">
+        <input type="text" placeholder="Search the store" aria-label="Search">
+        <button type="submit" aria-label="Search">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        </button>
+      </div>
+
+      <!-- Right Side -->
+      <div class="header-actions">
+        
+        <!-- Phone -->
+        <div class="action-group">
+          <strong>{{ section.settings.phone_number }}</strong>
+          <small>{{ section.settings.phone_subtext }}</small>
+        </div>
+
+        <!-- Contact -->
+        <div class="action-group action-link-wrapper" id="contact-trigger">
+          <div>
+            <strong>Contact Us</strong>
+            <small>We're Here to Help!</small>
+          </div>
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </div>
+
+        <!-- The Popup Modal -->
+        <div id="contact-popup" class="contact-popup-overlay">
+          <div class="contact-popup-card">
+            <div class="popup-header">
+              <h3>Need Help?</h3>
+              <p>We have licensed practitioners on staff to answer your questions</p>
+            </div>
+            <div class="popup-icons-bar">
+              <div class="icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                <span>Call</span>
+              </div>
+              <div class="icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Email</span>
+              </div>
+              <div class="icon-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <span>Text</span>
+              </div>
+            </div>
+            <div class="popup-info-text">
+              <p><strong>Toll-free:</strong> (866) 528-3195</p>
+              <p><strong>Call or text:</strong> (512) 575-4161</p>
+              <p><strong>Hours of Operation:</strong></p>
+              <p>M-F 8:30-5:30 CST</p>
+            </div>
+            <div class="popup-footer">
+              <p>24/7 Email and Chat Messages</p>
+            </div>
+            <button class="popup-close-btn" id="contact-popup-close">×</button>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="action-group action-link-wrapper">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          <div>
+            <strong>Account</strong>
+          </div>
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </div>
+
+        <!-- Cart -->
+        <a href="{{ routes.cart_url }}" class="header-cart">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          <span class="cart-count" id="cart-count-display">{{ cart.item_count }}</span>
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Navigation with Mobile Toggle -->
+    <div class="header-nav">
+      <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+        ☰ Menu
+      </button>
+      <ul class="nav-list" id="nav-list">
+        {%- for link in section.settings.menu.links -%}
+          <li>
+            <div style="display:flex; align-items:center;">
+              <a href="{{ link.url }}">{{ link.title }}</a>
+              {%- if link.links.size > 0 -%}
+                <span class="dropdown-toggle">▼</span>
+              {%- endif -%}
+            </div>
+            
+            {%- if link.links.size > 0 -%}
+              <ul class="nav-dropdown">
+                {%- for childlink in link.links -%}
+                  <li>
+                    <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // 1. CART COUNT UPDATER
+  function updateCartCount() {
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        const countElement = document.getElementById('cart-count-display');
+        if (countElement) {
+          countElement.textContent = cart.item_count;
+        }
+      })
+      .catch(error => console.error('Error updating cart:', error));
+  }
+
+  document.addEventListener('cart-updated', updateCartCount);
+
+  // 2. MOBILE MENU TOGGLE
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const navList = document.getElementById('nav-list');
+  
+  if (menuToggle && navList) {
+    menuToggle.addEventListener('click', function() {
+      navList.classList.toggle('active');
+    });
+  }
+
+  // 3. MOBILE DROPDOWN TOGGLES
+  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  dropdownToggles.forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      if (window.innerWidth <= 989) {
+        e.preventDefault();
+        const parentLi = this.closest('li');
+        const dropdown = parentLi.querySelector('.nav-dropdown');
+        if (dropdown) {
+          dropdown.classList.toggle('active');
+        }
+      }
+    });
+  });
+  // --- CONTACT POPUP LOGIC ---
+  const contactTrigger = document.getElementById('contact-trigger');
+  const contactPopup = document.getElementById('contact-popup');
+  const contactClose = document.getElementById('contact-popup-close');
+
+  if (contactTrigger && contactPopup && contactClose) {
+    
+    // OPEN POPUP
+    contactTrigger.addEventListener('click', function(e) {
+      e.preventDefault(); 
+      contactPopup.classList.add('active');
+      // Removed document.body.style.overflow = 'hidden'; 
+    });
+
+    // CLOSE POPUP FUNCTION
+    const closePopup = () => {
+      contactPopup.classList.remove('active');
+      // Removed document.body.style.overflow = ''; 
+    };
+
+    // CLOSE via 'X' button
+    contactClose.addEventListener('click', function(e) {
+      e.stopPropagation(); 
+      closePopup();
+    });
+
+    // CLOSE via clicking ANYWHERE else on the page
+    document.addEventListener('click', function(e) {
+      if (!contactTrigger.contains(e.target) && !contactPopup.contains(e.target)) {
+        closePopup();
+      }
+    });
+    
+    // CLOSE via pressing the ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && contactPopup.classList.contains('active')) {
+        closePopup();
+      }
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo Settings"
+    },
+    {
+      "type": "header",
+      "content": "Contact Info"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "(866) 528-3195"
+    },
+    {
+      "type": "text",
+      "id": "phone_subtext",
+      "label": "Phone Subtext",
+      "default": "Talk to a licensed practitioner!"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#343a40"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "search_btn_color",
+      "label": "Search Button Color",
+      "default": "#6ee7b7"
+    },
+    {
+      "type": "color",
+      "id": "cart_badge_color",
+      "label": "Cart Badge Color",
+      "default": "#a5b4fc"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "select",
+      "id": "font_family",
+      "label": "Font Family",
+      "options": [
+        { "value": "-apple-system, sans-serif", "label": "System Sans-Serif" },
+        { "value": "Georgia, serif", "label": "Serif" },
+        { "value": "Arial, sans-serif", "label": "Arial" }
+      ],
+      "default": "-apple-system, sans-serif"
+    }
+  ]
+}
+{% endschema %}
