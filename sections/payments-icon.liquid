@@ -1,0 +1,193 @@
+{% schema %}
+{
+  "name": "Payment Methods",
+  "tag": "section",
+  "class": "payment-methods-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "container_bg",
+      "label": "Container Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "container_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Container Radius",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "top_padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "bottom_padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "payment",
+      "name": "Payment Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Payment Icon"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt Text",
+          "default": "Payment"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Payment Methods"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class="payment-methods"
+  style="
+    background: {{ section.settings.section_bg }};
+    padding-top:{{ section.settings.top_padding }}px;
+    padding-bottom:{{ section.settings.bottom_padding }}px;
+  "
+>
+  <div
+    class="payment-methods__wrapper"
+    style="
+      background: {{ section.settings.container_bg }};
+      border-radius: {{ section.settings.container_radius }}px;
+    "
+  >
+    <div class="payment-methods__icons">
+      {% for block in section.blocks %}
+        {% if block.settings.icon != blank %}
+          <div class="payment-methods__item" {{ block.shopify_attributes }}>
+            {{
+              block.settings.icon
+              | image_url: width: 120
+              | image_tag:
+                loading: 'lazy',
+                alt: block.settings.alt,
+                class: 'payment-methods__icon'
+            }}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.payment-methods{
+    width:100%;
+}
+
+.payment-methods__wrapper{
+    width:calc(100% - 96px);
+    max-width:1820px;
+    margin:auto;
+    padding:18px 60px;
+    box-sizing:border-box;
+}
+
+.payment-methods__icons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:90px;
+    flex-wrap:wrap;
+}
+
+.payment-methods__item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.payment-methods__icon{
+    display:block;
+    width:auto;
+    height:38px;
+    object-fit:contain;
+}
+
+@media screen and (max-width:1200px){
+
+.payment-methods__wrapper{
+    width:calc(100% - 48px);
+    padding:18px 40px;
+}
+
+.payment-methods__icons{
+    gap:60px;
+}
+
+}
+
+@media screen and (max-width:768px){
+
+.payment-methods__wrapper{
+    width:calc(100% - 24px);
+    padding:18px 20px;
+    border-radius:14px;
+}
+
+.payment-methods__icons{
+    gap:26px;
+    justify-content:center;
+}
+
+.payment-methods__icon{
+    height:30px;
+}
+
+}
+
+@media screen and (max-width:480px){
+
+.payment-methods__wrapper{
+    padding:16px;
+}
+
+.payment-methods__icons{
+    gap:18px;
+}
+
+.payment-methods__icon{
+    height:26px;
+}
+
+}
+</style>
