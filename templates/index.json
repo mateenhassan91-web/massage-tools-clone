@@ -348,11 +348,75 @@
         "btn_color": "#5c5cff",
         "btn_text_color": "#ffffff"
       }
+    },
+    "payments_icon_8jf6dz": {
+      "type": "payments-icon",
+      "blocks": {
+        "payment_xrRgKU": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-visa-60.png",
+            "alt": "Payment"
+          }
+        },
+        "payment_wWhhg9": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-discover-card-50.png",
+            "alt": "Payment"
+          }
+        },
+        "payment_fJnjyR": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-discover-card-50.png",
+            "alt": "Payment"
+          }
+        },
+        "payment_63Ypky": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-discover-card-50.png",
+            "alt": "Payment"
+          }
+        },
+        "payment_mLyRz6": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-amex--pound-50.png",
+            "alt": "Payment"
+          }
+        },
+        "payment_MhXHgp": {
+          "type": "payment",
+          "settings": {
+            "icon": "shopify://shop_images/icons8-visa-60.png",
+            "alt": "Payment"
+          }
+        }
+      },
+      "block_order": [
+        "payment_xrRgKU",
+        "payment_wWhhg9",
+        "payment_fJnjyR",
+        "payment_63Ypky",
+        "payment_mLyRz6",
+        "payment_MhXHgp"
+      ],
+      "name": "Payment Methods",
+      "settings": {
+        "section_bg": "#f5f5f5",
+        "container_bg": "#ffffff",
+        "container_radius": 18,
+        "top_padding": 40,
+        "bottom_padding": 40
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "hero_section_3EYTik"
+    "hero_section_3EYTik",
+    "payments_icon_8jf6dz"
   ]
 }
