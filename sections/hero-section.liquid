@@ -131,14 +131,13 @@
     --ch-bg-bar: #f5f6f6;
     --ch-text: #333333;
     --ch-light-text: #666666;
-    --ch-accent-bg: {{ block.settings.icon_bg_color | default: '#f0edfe' }};
-    --ch-btn-color: {{ block.settings.btn_color | default: '#5c5cff' }};
-    --ch-btn-text: {{ block.settings.btn_text_color | default: '#ffffff' }};
+    --ch-accent-bg: {{ section.settings.icon_bg_color | default: '#f0edfe' }};
+    --ch-btn-color: {{ section.settings.btn_color | default: '#5c5cff' }};
+    --ch-btn-text: {{ section.settings.btn_text_color | default: '#ffffff' }};
     --ch-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     
     width: 100%;
     background: #f5f6f6;
-    {% comment %} padding-bottom: 30px; {% endcomment %}
     transition: all 0.4s ease;
     position: relative;
     z-index: 10;
@@ -146,8 +145,9 @@
   .ch-custom-hero-inner {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 20px 20px 0 0px;
+    padding: 20px 20px 0 20px;
     background: var(--ch-bg-bar);
+    transition: padding 0.4s ease;
   }
   .ch-info-bar-grid {
     display: grid;
@@ -156,6 +156,12 @@
     padding-bottom: 25px;
     border-bottom: 1px solid #f0f0f0;
     margin-bottom: 25px;
+    transition: opacity 0.4s ease, display 0s 0.4s;
+  }
+  .ch-info-bar-grid.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, display 0s 0.4s;
   }
   .ch-info-item {
     display: flex;
@@ -199,7 +205,7 @@
     border-radius: 12px;
     overflow: hidden;
     background: #e0e0e0;
-    aspect-ratio: 21 / 9;
+    aspect-ratio: 16 / 9;
   }
   .ch-hero-slide {
     position: absolute;
@@ -234,31 +240,35 @@
     align-items: center;
     text-align: center;
     background: rgba(0,0,0,0.3);
+    padding: 20px;
   }
   .ch-hero-overlay h2 {
-    font-size: clamp(32px, 5vw, 56px);
+    font-size: clamp(24px, 5vw, 56px);
     color: #fff;
     margin: 0 0 10px 0;
     font-weight: 700;
     text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     font-family: var(--ch-font-family);
+    line-height: 1.2;
   }
   .ch-hero-overlay p {
-    font-size: clamp(16px, 1.5vw, 22px);
+    font-size: clamp(14px, 1.5vw, 22px);
     color: #fff;
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
     font-family: var(--ch-font-family);
+    line-height: 1.4;
   }
   .ch-hero-btn {
     background: var(--ch-btn-color);
     color: var(--ch-btn-text);
-    padding: 14px 40px;
+    padding: 12px 30px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     transition: filter 0.2s;
     font-family: var(--ch-font-family);
+    display: inline-block;
   }
   .ch-hero-btn:hover {
     filter: brightness(0.85);
@@ -268,9 +278,9 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 4;
-    width: 45px;
-    height: 45px;
-    background: rgba(255,255,255,0.6);
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.8);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -278,22 +288,31 @@
     cursor: pointer;
     transition: background 0.2s;
     border: none;
+    backdrop-filter: blur(4px);
   }
-  .ch-nav-arrow:hover { background: rgba(255,255,255,0.9); }
-  .ch-nav-arrow.prev { left: 20px; }
-  .ch-nav-arrow.next { right: 20px; }
-  .ch-nav-arrow svg { width: 20px; height: 20px; stroke: #333; fill: none; stroke-width: 2; }
+  .ch-nav-arrow:hover { background: rgba(255,255,255,0.95); }
+  .ch-nav-arrow.prev { left: 15px; }
+  .ch-nav-arrow.next { right: 15px; }
+  .ch-nav-arrow svg { 
+    width: 18px; 
+    height: 18px; 
+    stroke: #333; 
+    fill: none; 
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
   .ch-controls-wrapper {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
     z-index: 4;
     background: #fff;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 30px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
   .ch-pause-btn {
@@ -304,35 +323,157 @@
     display: flex;
     align-items: center;
     border-right: 1px solid #ddd;
-    margin-right: 5px;
+    margin-right: 3px;
+    height: 20px;
   }
-  .ch-pause-btn svg { width: 16px; height: 16px; stroke: #222; fill: #222; }
+  .ch-pause-btn svg { 
+    width: 14px; 
+    height: 14px; 
+    stroke: #222; 
+    fill: #222; 
+  }
   .ch-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: #ddd;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
   }
-  .ch-dot.active { background: var(--ch-btn-color); }
+  .ch-dot.active { 
+    background: var(--ch-btn-color); 
+    transform: scale(1.2);
+  }
+  .ch-dot:hover {
+    background: #bbb;
+  }
 
+  /* Tablet Responsive */
   @media (max-width: 992px) {
-    .ch-info-bar-grid { grid-template-columns: repeat(2, 1fr); }
-    .ch-nav-arrow { width: 35px; height: 35px; }
+    .ch-custom-hero-inner {
+      padding: 15px 15px 0 15px;
+    }
+    .ch-info-bar-grid { 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 15px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+    }
+    .ch-info-item {
+      gap: 10px;
+    }
+    .ch-info-icon-wrap {
+      width: 36px;
+      height: 36px;
+    }
+    .ch-info-icon-wrap svg {
+      width: 18px;
+      height: 18px;
+    }
+    .ch-info-content h4 {
+      font-size: 14px;
+    }
+    .ch-info-content p {
+      font-size: 12px;
+    }
+    .ch-hero-carousel-container {
+      aspect-ratio: 4 / 3;
+    }
+    .ch-nav-arrow { 
+      width: 35px; 
+      height: 35px; 
+    }
     .ch-nav-arrow.prev { left: 10px; }
     .ch-nav-arrow.next { right: 10px; }
+    .ch-hero-overlay h2 {
+      font-size: clamp(22px, 4vw, 40px);
+    }
+    .ch-hero-overlay p {
+      font-size: clamp(13px, 1.8vw, 18px);
+      margin-bottom: 15px;
+    }
+    .ch-hero-btn {
+      padding: 10px 25px;
+      font-size: 14px;
+    }
   }
+
+  /* Mobile Responsive */
   @media (max-width: 600px) {
-    .ch-info-bar-grid { grid-template-columns: 1fr; gap: 15px; }
-    .ch-controls-wrapper { bottom: 10px; right: 10px; padding: 4px 10px; }
+    .ch-custom-hero-inner {
+      padding: 10px 10px 0 10px;
+    }
+    .ch-info-bar-grid { 
+      grid-template-columns: 1fr; 
+      gap: 12px;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .ch-info-item {
+      gap: 10px;
+    }
+    .ch-info-icon-wrap {
+      width: 32px;
+      height: 32px;
+    }
+    .ch-info-icon-wrap svg {
+      width: 16px;
+      height: 16px;
+    }
+    .ch-info-content h4 {
+      font-size: 13px;
+    }
+    .ch-info-content p {
+      font-size: 11px;
+    }
+    .ch-hero-carousel-container {
+      aspect-ratio: 3 / 4;
+      border-radius: 8px;
+    }
+    .ch-nav-arrow { 
+      width: 30px; 
+      height: 30px; 
+    }
+    .ch-nav-arrow.prev { left: 8px; }
+    .ch-nav-arrow.next { right: 8px; }
+    .ch-nav-arrow svg {
+      width: 16px;
+      height: 16px;
+    }
+    .ch-hero-overlay {
+      padding: 15px;
+      background: rgba(0,0,0,0.4);
+    }
+    .ch-hero-overlay h2 {
+      font-size: clamp(20px, 6vw, 28px);
+      margin-bottom: 8px;
+    }
+    .ch-hero-overlay p {
+      font-size: clamp(12px, 3vw, 16px);
+      margin-bottom: 15px;
+    }
+    .ch-hero-btn {
+      padding: 10px 24px;
+      font-size: 13px;
+      border-radius: 5px;
+    }
+    .ch-controls-wrapper { 
+      bottom: 10px; 
+      right: 10px; 
+      padding: 4px 8px;
+      gap: 4px;
+    }
+    .ch-dot {
+      width: 6px;
+      height: 6px;
+    }
   }
 </style>
 
 <div class="ch-custom-hero-wrapper" id="chScrollHeroSection">
   <div class="ch-custom-hero-inner">
     
-    <div class="ch-info-bar-grid">
+    <div class="ch-info-bar-grid" id="chInfoBar">
       <div class="ch-info-item">
         <div class="ch-info-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 22v-4M4 12H2M6 12H4M20 12h-2M22 12h-2M19.07 4.93l-2.83 2.83M4.93 19.07l2.83-2.83M19.07 19.07l-2.83-2.83M4.93 4.93l2.83 2.83"/><circle cx="12" cy="12" r="4"/></svg></div>
         <div class="ch-info-content">
@@ -368,7 +509,7 @@
       {% for block in section.blocks %}
         <div class="ch-hero-slide {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
           {% if block.settings.image != blank %}
-            <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.title | escape }}">
+            <img src="{{ block.settings.image | image_url: width: 1400 }}" alt="{{ block.settings.title | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
           {% else %}
             <img src="https://images.unsplash.com/photo-1581595211176-2db7fd0ff0c8?q=80&w=2070&auto=format&fit=crop" alt="Placeholder">
           {% endif %}
@@ -382,15 +523,15 @@
         </div>
       {% endfor %}
 
-      <button class="ch-nav-arrow prev" id="chPrevArrow">
+      <button class="ch-nav-arrow prev" id="chPrevArrow" aria-label="Previous slide">
         <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
       </button>
-      <button class="ch-nav-arrow next" id="chNextArrow">
+      <button class="ch-nav-arrow next" id="chNextArrow" aria-label="Next slide">
         <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
 
       <div class="ch-controls-wrapper">
-        <button class="ch-pause-btn" id="chTogglePlayBtn">
+        <button class="ch-pause-btn" id="chTogglePlayBtn" aria-label="Pause/Play slideshow">
           <svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
         </button>
         {% for block in section.blocks %}
@@ -401,11 +542,14 @@
     </div>
   </div>
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const infoBar = document.querySelector('.ch-info-bar-grid'); // Target ONLY the top bar
+    const infoBar = document.getElementById('chInfoBar');
     const heroSection = document.getElementById('chScrollHeroSection');
-    if(!infoBar || !heroSection) return;
+    const heroInner = heroSection?.querySelector('.ch-custom-hero-inner');
+    
+    if(!infoBar || !heroSection || !heroInner) return;
     
     const slides = document.querySelectorAll('.ch-hero-slide');
     const dots = document.querySelectorAll('.ch-dot');
@@ -449,34 +593,43 @@
       isPlaying ? stopSlider() : startSlider();
     }
 
-    // --- SCROLL LOGIC (Targets ONLY the Info Bar) ---
+    // --- SCROLL LOGIC ---
+    let scrollTimeout;
     window.addEventListener('scroll', function() {
-      if (window.scrollY > 10) {
-        // Hide the info bar
-        infoBar.style.opacity = '0';
-        infoBar.style.pointerEvents = 'none'; // Prevents accidental clicks while hidden
-        
-        // Optional: Shrink the top padding of the container so it doesn't leave a big white gap
-        heroSection.querySelector('.ch-custom-hero-inner').style.paddingTop = '0px'; 
-        
-        setTimeout(() => {
-          if(window.scrollY > 10) infoBar.style.display = 'none';
-        }, 400); // Matches the CSS transition time
-      } else {
-        // Show the info bar
-        infoBar.style.display = 'flex'; // Flex is correct for the grid container
-        heroSection.querySelector('.ch-custom-hero-inner').style.paddingTop = '20px'; // Restore padding
-        
-        setTimeout(() => {
-          infoBar.style.opacity = '1';
-          infoBar.style.pointerEvents = 'auto';
-        }, 10);
+      if (scrollTimeout) {
+        window.cancelAnimationFrame(scrollTimeout);
       }
+      
+      scrollTimeout = window.requestAnimationFrame(function() {
+        if (window.scrollY > 10) {
+          // Hide the info bar
+          if (!infoBar.classList.contains('hidden')) {
+            infoBar.classList.add('hidden');
+            heroInner.style.paddingTop = '0px';
+          }
+        } else {
+          // Show the info bar
+          if (infoBar.classList.contains('hidden')) {
+            infoBar.classList.remove('hidden');
+            heroInner.style.paddingTop = window.innerWidth <= 600 ? '10px' : '20px';
+          }
+        }
+      });
     });
 
     // --- EVENT LISTENERS ---
-    nextBtn.addEventListener('click', () => { nextSlide(); stopSlider(); startSlider(); });
-    prevBtn.addEventListener('click', () => { prevSlide(); stopSlider(); startSlider(); });
+    nextBtn.addEventListener('click', () => { 
+      nextSlide(); 
+      stopSlider(); 
+      startSlider(); 
+    });
+    
+    prevBtn.addEventListener('click', () => { 
+      prevSlide(); 
+      stopSlider(); 
+      startSlider(); 
+    });
+    
     playBtn.addEventListener('click', togglePlay);
     
     dots.forEach((dot, index) => {
@@ -486,6 +639,49 @@
         startSlider();
       });
     });
+
+    // Touch swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const carousel = document.getElementById('chCarouselContainer');
+    
+    carousel.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+    
+    carousel.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, {passive: true});
+    
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      if (touchEndX < touchStartX - swipeThreshold) {
+        // Swipe left - next slide
+        nextSlide();
+        stopSlider();
+        startSlider();
+      }
+      if (touchEndX > touchStartX + swipeThreshold) {
+        // Swipe right - previous slide
+        prevSlide();
+        stopSlider();
+        startSlider();
+      }
+    }
+
+    // Pause slider when not in viewport
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (isPlaying) startSlider();
+        } else {
+          stopSlider();
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    observer.observe(heroSection);
 
     startSlider();
   });
