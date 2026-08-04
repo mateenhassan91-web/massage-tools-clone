@@ -29,7 +29,7 @@
 .experience-image{
     border-radius:32px;
     overflow:hidden;
-    min-height:720px;
+    max-height:720px;
 }
 
 .experience-image picture,
