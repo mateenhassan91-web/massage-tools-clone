@@ -411,12 +411,37 @@
         "top_padding": 40,
         "bottom_padding": 40
       }
+    },
+    "exp_showcase_w96Dkd": {
+      "type": "exp-showcase",
+      "name": "Experience Showcase",
+      "settings": {
+        "desktop_image": "shopify://shop_images/avg-rating.webp",
+        "rating": "4.7",
+        "review_text": "Over 1,500 Reviews",
+        "review_link": "",
+        "heading": "The Experience You Deserve",
+        "description": "<p>Add your content here.</p>",
+        "phone_text": "866.961.9421",
+        "phone_url": "",
+        "email_text": "Email Us",
+        "email_url": "",
+        "section_bg": "#f5f6f6",
+        "card_bg": "#ffffff",
+        "heading_color": "#222222",
+        "text_color": "#4d4d4d",
+        "badge_bg": "#72F1BF",
+        "badge_text": "#1f1f1f",
+        "button_color": "#5148ff",
+        "button_text": "#5148ff"
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
     "hero_section_3EYTik",
-    "payments_icon_8jf6dz"
+    "payments_icon_8jf6dz",
+    "exp_showcase_w96Dkd"
   ]
 }
