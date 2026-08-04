@@ -34,9 +34,7 @@
     color: {{ section.settings.text_color }};
     flex-shrink: 0;
   }
-  .logo-icon-wrapper { margin-right: 12px; 
-  height: 37px;
-}
+  .logo-icon-wrapper { margin-right: 12px; height: 37px; }
   .logo-svg { width: 45px; height: 45px; }
   .logo-text-wrapper { display: flex; flex-direction: column; line-height: 0.9; }
   .logo-primary { font-size: 28px; font-weight: 400; letter-spacing: -0.5px; font-family: 'Georgia', serif; font-style: italic; }
@@ -106,30 +104,98 @@
     .nav-list li:hover .nav-dropdown { display: block; }
   }
 
-  /* Mobile Responsive */
+  /* ------------------------------------------------ */
+  /* MOBILE RESPONSIVE (MATCHES YOUR SCREENSHOT)      */
+  /* ------------------------------------------------ */
   @media screen and (max-width: 989px) {
-    .header-top { flex-direction: column; align-items: stretch; }
-    .header-logo { justify-content: center; margin-bottom: 10px; }
-    .header-actions { justify-content: space-around; gap: 15px; }
-    
-    /* Mobile Menu Styling */
-    .header-nav { white-space: normal; justify-content: flex-start; padding-bottom: 10px; display: block; }
-    .nav-list { flex-direction: column; align-items: flex-start; gap: 10px; padding: 10px 0; display: none; }
-    .nav-list.active { display: flex; }
-    
-    /* Mobile Hamburger */
-    .mobile-toggle {
-      display: inline-block;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      color: {{ section.settings.text_color }};
-      cursor: pointer;
-      font-size: 16px;
-      margin-top: 10px;
+    /* Lay out Top Bar: Hamburger | Logo | Icons */
+    .header-top {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
     }
 
+    /* Hide the text part of the phone/contact buttons */
+    .action-group strong, .action-group small {
+      display: none !important;
+    }
+    .action-link-wrapper {
+      gap: 0;
+    }
+    /* Make contact/account/cart icons smaller and just icons */
+    .header-actions {
+      gap: 15px;
+    }
+    .action-link-wrapper svg, .header-cart svg {
+      width: 24px;
+      height: 24px;
+    }
+    /* Remove the down arrows on desktop elements */
+    .contact-popup-wrapper .action-link-wrapper svg:last-child,
+    .header-actions .action-link-wrapper:not(.contact-popup-wrapper .action-link-wrapper) svg:last-child,
+    .header-cart svg:last-child {
+      display: none !important;
+    }
+
+    /* Logo container logic */
+    .header-logo {
+      justify-content: center;
+      margin-bottom: 0;
+      flex: 1; /* Forces logo to take up remaining space in the middle */
+    }
+    .logo-primary { font-size: 24px; }
+    .logo-secondary { font-size: 10px; }
+
+    /* Mobile Hamburger (Left side) */
+    .mobile-toggle {
+      display: block;
+      background: none;
+      border: none;
+      color: {{ section.settings.text_color }};
+      padding: 0;
+      font-size: 0; /* Hide the text "Menu" */
+      cursor: pointer;
+      line-height: 0;
+      width: 30px;
+    }
+    /* Custom 3-bar hamburger icon */
+    .mobile-toggle::before {
+      content: "☰";
+      font-size: 32px;
+      display: block;
+      line-height: 1;
+    }
+
+    /* Search Bar (Next line, full width) */
+    .header-search {
+      max-width: 100%;
+      width: 100%;
+      margin-top: 15px;
+      order: 10; /* Pushes it below everything else */
+      flex-basis: 100%;
+    }
+
+    /* Mobile Menu Styling */
+    .header-nav { 
+      white-space: normal; 
+      justify-content: flex-start; 
+      padding-bottom: 10px; 
+      display: block; 
+      margin-top: 0; /* Adjust margins for new layout */
+      border-top: none;
+      padding-top: 0;
+    }
+    .nav-list { 
+      flex-direction: column; 
+      align-items: flex-start; 
+      gap: 10px; 
+      padding: 10px 0; 
+      display: none; 
+    }
+    .nav-list.active { display: flex; }
+    
     .nav-dropdown {
       position: static;
       display: none;
@@ -141,39 +207,37 @@
     }
     .nav-dropdown.active { display: block; }
   }
+  
   @media (min-width: 990px) {
-    .mobile-toggle { display: none; }
+    .mobile-toggle { display: none !important; }
   }
   
   @media screen and (max-width: 480px) {
     .header-wrapper { padding: 0 1rem; }
-    .action-group strong, .action-group small { display: none; }
-    .header-logo { flex-direction: row; justify-content: center; text-align: center; }
-    .header-actions { flex-wrap: wrap; justify-content: center; }
+    .header-actions { gap: 12px; }
+    .action-link-wrapper svg, .header-cart svg { width: 22px; height: 22px; }
   }
 
   /* ========================================= */
-  /* CONTACT POPUP CSS (Moved to the very bottom to prevent breaking code) */
+  /* CONTACT POPUP CSS                          */
   /* ========================================= */
-    .contact-popup-overlay {
-    position: absolute !important; /* Changed from fixed to absolute */
-    top: 100% !important; /* Positions it exactly at the bottom of the Contact Us button */
-    left: 50% !important; /* Starts from the center of the parent */
-    transform: translateX(-50%) !important; /* Shifts it left by half its width to perfectly center it */
-    width: 350px !important; /* Fixed width */
+  .contact-popup-overlay {
+    position: absolute !important;
+    top: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 350px !important;
     background: #ffffff !important;
-    /* Removed backdrop-filter (blur) */
-    /* Removed full screen width/height to make it a tiny dropdown */
     z-index: 999999 !important;
     display: none !important;
     padding: 0 !important;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
     border-radius: 8px !important;
     box-sizing: border-box !important;
-    margin-top: 10px !important; /* Adds a tiny gap between the text and the popup */
+    margin-top: 10px !important;
   }
 
-   .contact-popup-overlay.active {
+  .contact-popup-overlay.active {
     display: block !important;
   }
 
@@ -221,6 +285,10 @@
     z-index: 10;
   }
   .popup-close-btn:hover { color: #333; }
+  
+  @media (max-width: 480px) {
+    .contact-popup-overlay { width: 300px !important; }
+  }
 {%- endstyle -%}
 
 <div class="header-wrapper">
@@ -253,20 +321,14 @@
       <!-- Right Side -->
       <div class="header-actions">
         
-        <!-- Phone -->
-        <div class="action-group">
-          <strong>{{ section.settings.phone_number }}</strong>
-          <small>{{ section.settings.phone_subtext }}</small>
-        </div>
-
-        <!-- Contact -->
+        <!-- Contact (Headset Icon) -->
         <div class="contact-popup-wrapper">
           <div class="action-group action-link-wrapper" id="contact-trigger">
+            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/><path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
             <div>
               <strong>Contact Us</strong>
               <small>We're Here to Help!</small>
             </div>
-            <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
           </div>
 
           <div id="contact-popup" class="contact-popup-overlay">
@@ -306,17 +368,12 @@
         <!-- Account -->
         <div class="action-group action-link-wrapper">
           <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-          <div>
-            <strong>Account</strong>
-          </div>
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
         </div>
 
         <!-- Cart -->
         <a href="{{ routes.cart_url }}" class="header-cart">
           <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
           <span class="cart-count" id="cart-count-display">{{ cart.item_count }}</span>
-          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
         </a>
 
       </div>
@@ -324,9 +381,6 @@
 
     <!-- Navigation with Mobile Toggle -->
     <div class="header-nav">
-      <button class="mobile-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
-        ☰ Menu
-      </button>
       <ul class="nav-list" id="nav-list">
         {%- for link in section.settings.menu.links -%}
           <li>
@@ -371,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.addEventListener('cart-updated', updateCartCount);
 
-  // 2. MOBILE MENU TOGGLE
+  // 2. MOBILE MENU TOGGLE (Hamburger is now separate)
   const menuToggle = document.getElementById('mobile-menu-toggle');
   const navList = document.getElementById('nav-list');
   
@@ -395,6 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
+
   // --- CONTACT POPUP LOGIC ---
   const contactTrigger = document.getElementById('contact-trigger');
   const contactPopup = document.getElementById('contact-popup');
@@ -406,13 +461,11 @@ document.addEventListener('DOMContentLoaded', function() {
     contactTrigger.addEventListener('click', function(e) {
       e.preventDefault(); 
       contactPopup.classList.add('active');
-      // Removed document.body.style.overflow = 'hidden'; 
     });
 
     // CLOSE POPUP FUNCTION
     const closePopup = () => {
       contactPopup.classList.remove('active');
-      // Removed document.body.style.overflow = ''; 
     };
 
     // CLOSE via 'X' button
@@ -435,6 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+});
 </script>
 
 {% schema %}
@@ -444,6 +498,18 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       "type": "header",
       "content": "Logo Settings"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_primary",
+      "label": "Primary Logo Text",
+      "default": "Massage"
+    },
+    {
+      "type": "text",
+      "id": "logo_text_secondary",
+      "label": "Secondary Logo Text",
+      "default": "TOOLS"
     },
     {
       "type": "header",
