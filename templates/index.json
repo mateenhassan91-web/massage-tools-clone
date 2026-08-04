@@ -308,15 +308,6 @@
             "btn_link": ""
           }
         },
-        "slide_YTbctN": {
-          "type": "slide",
-          "settings": {
-            "title": "Electric Exam Chairs",
-            "subtitle": "Adjustable comfort for your spa or medical office",
-            "btn_text": "Shop Electric Exam Chairs",
-            "btn_link": ""
-          }
-        },
         "slide_8fd3B7": {
           "type": "slide",
           "settings": {
@@ -340,7 +331,6 @@
       },
       "block_order": [
         "slide_fBa9aF",
-        "slide_YTbctN",
         "slide_8fd3B7",
         "slide_94yXNR"
       ],
